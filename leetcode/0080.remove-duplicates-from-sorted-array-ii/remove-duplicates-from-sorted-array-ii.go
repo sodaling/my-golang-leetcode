@@ -9,7 +9,7 @@ func removeDuplicates(a []int) int {
 	}
 	pre := 2
 	for i := 2; i < len(a); i++ {
-		if a[i] == a[pre-1] && a[i] == a[pre-2] {
+		if a[i] == a[pre-2] {
 			continue
 		}
 		a[i], a[pre] = a[pre], a[i]
