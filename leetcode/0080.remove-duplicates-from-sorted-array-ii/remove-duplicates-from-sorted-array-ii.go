@@ -12,7 +12,8 @@ func removeDuplicates(a []int) int {
 		if a[i] == a[pre-2] {
 			continue
 		}
-		a[i], a[pre] = a[pre], a[i]
+		//a[i], a[pre] = a[pre], a[i]
+		a[pre] = a[i]
 		pre++
 	}
 	return pre
