@@ -26,5 +26,23 @@ func sortColors2(a []int) {
 
 func sortColors(a []int) {
 	//三路快排
-	//one,two
+	//三个都是包前不包后
+	//原版用的是case
+	//至于哪个快For just a few items, the difference is small. If you have many items you should definitely use a switch.
+	//If a switch contains more than five items, it's implemented using a lookup table or a hash list. This means that all items get the same access time, compared to a list of if:s where the last item takes much more time to reach as it has to evaluate every previous condition first.
+	var left = -1
+	var right = len(a)
+	var i = 0
+	for i<right{
+		if a[i]==1{
+			i++
+		}else if a[i]==0{
+			a[left+1],a[i] = a[i],a[left+1]
+			left++
+			i++
+		}else if a[i]==2 {
+			a[right-1],a[i] = a[i],a[right-1]
+			right--
+		}else {panic("wrong input")}
+	}
 }
