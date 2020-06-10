@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 func Quick2Sort(values []int) {
 	if len(values) <= 1 {
@@ -107,8 +110,18 @@ func merge(arr []int, l int, m int, r int) {
 }
 
 func main() {
-	a := []int{6, 2, 3, 1, 5, 412, 31, 142342, 12, 11, 31, 42, 53, 6, 2}
-	//MergeSort(a, 0, len(a)-1)
-	Quick2Sort(a)
-	fmt.Println(a)
+	str := "Hello,世界"
+	//utf-8遍历
+	for i := 0; i < len(str); i++ {
+		ch := str[i]
+		ctype := reflect.TypeOf(ch)
+		fmt.Printf("%s ", ctype)
+	}
+	fmt.Println("=============>Unicode遍历")
+	//Unicode遍历
+	for _, ch1 := range str {
+		ctype := reflect.TypeOf(ch1)
+		fmt.Printf("%s ", ctype)
+		fmt.Printf("%c", ch1)
+	}
 }
