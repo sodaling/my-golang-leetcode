@@ -109,6 +109,46 @@ func merge(arr []int, l int, m int, r int) {
 	}
 }
 
+func findAnagrams(s string, p string) []int {
+	if len(s) == 0 {
+		return nil
+	}
+	var ret []int
+	pLen := len(p)
+	strMap := make(map[byte]struct{})
+	arrMap := make(map[byte]int)
+	for i := 0; i < len(p); i++ {
+		strMap[p[i]] = struct{}{}
+	}
+	left, right := -1, 0
+
+	for right < len(s) {
+		if _, ok := strMap[s[right]]; ok {
+			arrLen := len(arrMap)
+			if arrLen == 0 {
+				arrMap[s[right]], left = right, right
+			} else if arrLen < pLen {
+				arrMap[s[right]] = right
+				if len(arrMap) == pLen {
+					ret = append(ret, left)
+				}
+			} else {
+				for ; left < arrMap[s[right]]+1; left++ {
+					delete(arrMap, s[left])
+				}
+				arrMap[s[left]] = left
+				if len(arrMap) == pLen {
+					ret = append(ret, left)
+				}
+			}
+		} else {
+			left = right + 1
+		}
+		right++
+	}
+	return ret
+}
+
 func main() {
 	str := "Hello,世界"
 	//utf-8遍历
