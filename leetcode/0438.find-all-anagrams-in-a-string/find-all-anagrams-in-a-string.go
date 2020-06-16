@@ -42,33 +42,33 @@ func findAnagramsErr(s string, p string) []int {
 }
 func findAnagrams(s string, p string) []int {
 	need := make(map[byte]int)
-	window:= make(map[byte]int)
-	for i:=0;i<len(p);i++{
+	window := make(map[byte]int)
+	for i := 0; i < len(p); i++ {
 		need[p[i]]++
 	}
 	valid := 0
 	var ret []int
-	left,right := 0,0
-	for right<len(s){
+	left, right := 0, 0
+	for right < len(s) {
 		// 窗口右移
 		c := s[right]
 		right++
-		if _,ok:=need[c];ok{
+		if _, ok := need[c]; ok {
 			window[c]++
-			if need[c]==window[c]{
+			if need[c] == window[c] {
 				valid++
 			}
 		}
 		// 窗口右移
-		for right-left>=len(p){
+		for right-left >= len(p) {
 			// 满足条件则更新返回数组
-			if valid==len(need){
-				ret = append(ret,left)
+			if valid == len(need) {
+				ret = append(ret, left)
 			}
 			c = s[left]
 			left++
-			if _,ok:=need[c];ok{
-				if window[c]==need[c]{
+			if _, ok := need[c]; ok {
+				if window[c] == need[c] {
 					valid--
 				}
 				window[c]--

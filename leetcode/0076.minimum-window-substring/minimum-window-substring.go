@@ -1,7 +1,6 @@
 package problem0076
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -42,7 +41,6 @@ func minWindow(s string, t string) string {
 	if retLen == math.MaxInt64{
 		return ""
 	} else {
-		fmt.Println(retLeft, retLen)
 		return s[retLeft : retLeft+retLen]
 	}
 }

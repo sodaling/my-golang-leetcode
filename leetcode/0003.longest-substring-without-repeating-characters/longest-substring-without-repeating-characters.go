@@ -1,6 +1,6 @@
 package problem0003
 
-func lengthOfLongestSubstring(s string) int {
+func lengthOfLongestSubstring2(s string) int {
 	if len(s) <= 1 {
 		return len(s)
 	}
@@ -20,6 +20,28 @@ func lengthOfLongestSubstring(s string) int {
 			strMap[s[right]] = right
 		}
 		right++
+	}
+	return longest
+}
+
+func lengthOfLongestSubstring(s string) int {
+	window := make(map[byte]int)
+	longest := 0
+	left, right := 0, 0
+	for right < len(s) {
+		r := s[right]
+		right++
+		window[r]++
+		for window[r] > 1 {
+			l := s[left]
+			left++
+			if _, ok := window[l]; ok {
+				window[l]--
+			}
+		}
+		if right-left > longest {
+			longest = right - left
+		}
 	}
 	return longest
 }
