@@ -7,43 +7,33 @@ import (
 
 func threeSumClosest(nums []int, target int) int {
 	sort.Ints(nums)
-	minSub := math.MaxInt64
-	var retArry [3]int
+	ret, delta := 0, math.MaxInt64
 
 	for i := range nums {
-		var (
-			left  = i + 1
-			right = len(nums) - 1
-		)
-
-		for left < right {
-			sum := nums[i] + nums[right] + nums[left]
-			if sum == target {
-				return target
-			} else if sum > target {
-				cSub := target - sum
-				if cSub < 0 {
-					cSub = cSub * -1
+		if i > 0 && nums[i-1] == nums[i] {
+			continue
+		}
+		l, r := i+1, len(nums)-1
+		for l < r {
+			s := nums[i] + nums[l] + nums[r]
+			switch {
+			case s > target:
+				r--
+				if s-target < delta {
+					delta = s - target
+					ret = s
 				}
-				if cSub < minSub {
-					minSub = cSub
-					retArry = [3]int{nums[i], nums[left], nums[right]}
+			case s < target:
+				l++
+				// 注意delta为正
+				if target-s < delta {
+					delta = target - s
+					ret = s
 				}
-				right -= 1
-				continue
-			} else {
-				cSub := target - sum
-				if cSub < 0 {
-					cSub = cSub * -1
-				}
-				if cSub < minSub {
-					minSub = cSub
-					retArry = [3]int{nums[i], nums[left], nums[right]}
-				}
-				left += 1
-				continue
+			default:
+				return s
 			}
 		}
 	}
-	return retArry[0] + retArry[1] + retArry[2]
+	return ret
 }

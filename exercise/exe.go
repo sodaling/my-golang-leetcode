@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"reflect"
+	"sort"
 )
 
 func Quick2Sort(values []int) {
@@ -149,19 +149,31 @@ func findAnagrams(s string, p string) []int {
 	return ret
 }
 
+func threeSum(nums []int) [][]int {
+	// 两次循环
+	// 通过了，但是贼慢，我估计是慢在判重的地方
+	sort.Ints(nums)
+	var ret [][]int
+	for i := 0; i < len(nums); i++ {
+		if nums[i] > 0 {
+			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		need := 0 - nums[i]
+		tempMap := make(map[int]int)
+		for j := i + 1; j < len(nums); j++ {
+			need2 := need - nums[j]
+			if v, ok := tempMap[need2]; ok {
+				ret = append(ret, []int{nums[i], nums[v], nums[j]})
+			} else {
+				tempMap[nums[j]] = j
+			}
+		}
+	}
+	return ret
+}
 func main() {
-	str := "Hello,世界"
-	//utf-8遍历
-	for i := 0; i < len(str); i++ {
-		ch := str[i]
-		ctype := reflect.TypeOf(ch)
-		fmt.Printf("%s ", ctype)
-	}
-	fmt.Println("=============>Unicode遍历")
-	//Unicode遍历
-	for _, ch1 := range str {
-		ctype := reflect.TypeOf(ch1)
-		fmt.Printf("%s ", ctype)
-		fmt.Printf("%c", ch1)
-	}
+	fmt.Println(threeSum([]int{0, 0, 0, 0}))
 }
