@@ -4,11 +4,11 @@ func reverseList(head *ListNode) *ListNode {
 	var pre *ListNode
 	var cur *ListNode
 	var pos *ListNode
-	if head == nil {
-		return nil
+	if head == nil || head.Next == nil {
+		return head
 	}
 	cur = head
-	pos = cur.Next
+	pos = head.Next
 	for pos != nil {
 		cur.Next = pre
 		pre = cur
